@@ -1,8 +1,9 @@
 // Цифровой вход 2 присоединен к кнопке. Объявим переменную для этого пина:
 int pushButton = 2;
 int led = 4;
-int laststate = 0;
+int lastledstate = 0;
 int clikCount = 0;
+int LastButtonState = 0;
 // Настройка, выполняемая один раз при запуске программы:
 void setup() {
   // Инициализируем последовательную передачу данных со скоростью 9600 бит в секунду:
@@ -16,15 +17,18 @@ void loop() {
   // Читаем значение на входном пине:
   int buttonState = digitalRead(pushButton);
   // Выводим значение на монитор последовательного порта:
-  if (buttonState != laststate) {
-    Serial.print(buttonState?"кнопка нажата: ":"кнопка отжата\n");
-    if (buttonState == 1) {
+
+    
+    if (buttonState == 1 && LastButtonState == 0) {
       clikCount++;
+      digitalWrite(led, lastledstate = !lastledstate);
+      Serial.print(lastledstate?"кнопка нажата: ":"кнопка отжата\n");
       Serial.println(clikCount);
+      delay(50);
       }
-    digitalWrite(led, buttonState?HIGH:LOW);
-    laststate = buttonState;
+    
+    
     // Задержка для стабильного считывания:
-    delay(50);
-    }
+    LastButtonState = buttonState;
+    
 }  
