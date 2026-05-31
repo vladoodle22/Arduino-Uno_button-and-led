@@ -22,8 +22,7 @@ void loop() {
     if (buttonState == 1 && LastButtonState == 0) {
       clikCount++;
       digitalWrite(led, lastledstate = !lastledstate);
-      Serial.print(lastledstate?"кнопка нажата: ":"кнопка отжата\n");
-      Serial.println(clikCount);
+      Serial.println(String(lastledstate?"led on: ":"led off: ") + "	clicks:" + clikCount);
       delay(50);
       }
     
